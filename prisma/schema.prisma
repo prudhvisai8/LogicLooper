@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"   // or "mysql", "sqlite" for dev
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(uuid())   // or Int @id @default(autoincrement())
+  firebaseUid  String?  @unique                // from Firebase Auth
+  email        String?  @unique
+  displayName  String?
+  photoURL     String?
+  isGuest      Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  activities   DailyPuzzleActivity[]
+
+  @@map("users")
+}
+
+model DailyPuzzleActivity {
+  id           String   @id @default(uuid())
+  userId       String
+  puzzleDate   DateTime // store as YYYY-MM-DD (use .toISOString().split('T')[0] in code)
+  completed    Boolean  @default(false)
+  completedAt  DateTime?
+  score        Int      @default(0)
+  timeTaken    Int?     // seconds
+  hintsUsed    Int      @default(0)
+  isSynced     Boolean  @default(false)   // false = pending sync
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  difficulty Int? @default(1)
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, puzzleDate])   // one record per user per day
+  @@index([userId, puzzleDate])    // fast lookup for streak/heatmap
+  @@index([puzzleDate])            // for leaderboard queries if needed
+  @@map("daily_puzzle_activity")
+}
+
+// Optional: if you want to pre-store streak (not required — can compute client-side)
+model UserStreak {
+  id              String   @id @default(uuid())
+  userId          String   @unique
+  currentStreak   Int      @default(0)
+  longestStreak   Int      @default(0)
+  lastCompletedAt DateTime?
+  updatedAt       DateTime @updatedAt
+
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_streaks")
+}
