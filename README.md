@@ -1,18 +1,11 @@
-# Welcome to your Lovable project
+
+Logic looper
+# Welcome to project
 
 ## Project info
+Logic Looper is a production-grade, retention-driven web application designed to maximize daily user engagement through structured streak mechanics, deterministic puzzle generation, and a client-first engineering model. The system is architected to deliver 365 unique daily puzzles per year while minimizing backend dependency and optimizing operational efficiency.
+The core innovation lies in executing the majority of business logic directly in the browser. Puzzle generation, validation, scoring, streak tracking, and heatmap rendering occur client-side. The backend acts strictly as a secure synchronization and identity layer. This architectural decision significantly reduces server load, increases scalability, and enables full offline functionality. Logic Looper represents a scalable, cloud-native engagement platform engineered with professional UI/UX standards and enterprise-level reliability.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
-
-## How can I edit this code?
-
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
 
 **Use your preferred IDE**
 
@@ -60,14 +53,3 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
